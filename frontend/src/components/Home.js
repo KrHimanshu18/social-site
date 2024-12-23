@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 function Home() {
   const quotes = [
@@ -233,9 +234,19 @@ function Home() {
             </button>
           </div>
         </div>
-        <div className="bg-yellow-800 py-32">
-          <h1 className="text-2xl font-bold">{quotes[currInd].quote}</h1>
-          <p className="text-xl font-semibold">{quotes[currInd].by}</p>
+        <div className="quote-wrapper w-100">
+          <TransitionGroup>
+            <CSSTransition
+              key={quotes[currInd]}
+              timeout={1000}
+              classNames="slide-up"
+            >
+              <div className="bg-yellow-800 py-32 quote-container w-100">
+                <h1 className="text-2xl font-bold">{quotes[currInd].quote}</h1>
+                <p className="text-xl font-semibold">{quotes[currInd].by}</p>
+              </div>
+            </CSSTransition>
+          </TransitionGroup>
         </div>
       </section>
 
