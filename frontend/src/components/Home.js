@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "./styles.css";
 
 function Home() {
   const quotes = [
@@ -79,7 +79,7 @@ function Home() {
   useEffect(() => {
     const quoteInterval = setInterval(() => {
       setCurrInd((prevIndex) => (prevIndex + 1) % length);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(quoteInterval);
   }, [length]);
@@ -234,19 +234,11 @@ function Home() {
             </button>
           </div>
         </div>
-        <div className="quote-wrapper w-100">
-          <TransitionGroup>
-            <CSSTransition
-              key={quotes[currInd]}
-              timeout={1000}
-              classNames="slide-up"
-            >
-              <div className="bg-yellow-800 py-32 quote-container w-100">
-                <h1 className="text-2xl font-bold">{quotes[currInd].quote}</h1>
-                <p className="text-xl font-semibold">{quotes[currInd].by}</p>
-              </div>
-            </CSSTransition>
-          </TransitionGroup>
+        <div className="bg-yellow-800 py-32 quote-container w-100">
+          <div>
+            <h1 className="text-2xl font-bold">{quotes[currInd].quote}</h1>
+            <p className="text-xl font-semibold">{quotes[currInd].by}</p>
+          </div>
         </div>
       </section>
 
