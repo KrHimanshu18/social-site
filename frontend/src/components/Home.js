@@ -92,7 +92,10 @@ function Home() {
 
   return (
     <div className="bg-yellow-600 h-screen">
-      <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <div
+        className="bg-yellow-600 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start fixed top-0 left-0 w-full z-10 shadow-md pb-2"
+        style={{ height: "80px" }}
+      >
         <a
           href="/"
           className="d-flex align-items-center my-2 my-lg-0 me-lg-auto font-bold text-2xl text-white text-decoration-none"
@@ -215,7 +218,7 @@ function Home() {
 
       {/* HERO SECTION */}
       {/* Block-level elements like <section> automatically inherit the background from their parent */}
-      <section className="pt-5 py-5 text-center bg-yellow-600">
+      <section className="pt-[100px] text-center bg-yellow-600">
         <h1 className="display-4 fw-bold text-dark mb-2">
           Share Your Thoughts
         </h1>
