@@ -12,7 +12,7 @@ function Post(props) {
       </div>
       <h2 className="post my-5 py-5 w-100 font-bold text-xl">{props.post}</h2>
       <div className="flex justify-between w-100">
-        <div>
+        <div className="flex flex-col items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -29,7 +29,7 @@ function Post(props) {
           </svg>
           <p className="font-semibold">Like</p>
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -46,7 +46,7 @@ function Post(props) {
           </svg>
           <p className="font-semibold">Comment</p>
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
