@@ -1,4 +1,6 @@
 import React from "react";
+import Post from "./Post";
+import "./styles.css";
 
 function Profile() {
   const user = {
@@ -139,31 +141,52 @@ function Profile() {
       </div>
 
       {/* HERO SECTION */}
-      <section className="pt-[100px]">
-        <div className="profile-section">
-          <div className="profile-header">
-            <img
-              src={user.profilePicture}
-              alt={`${user.name}'s profile`}
-              className="profile-picture"
-            />
-            <div className="profile-info">
-              <h2 className="profile-name">{user.name}</h2>
-              <p className="profile-bio">{user.bio}</p>
+      <section className="pt-[140px] bg-yellow-600 h-screen">
+        <div className="flex gap-5 bg-yellow-600">
+          <div className="flex justify-center w-[45%] fixed top-25 bg-yellow-600">
+            <div className="w-[100%] pl-4 flex-col">
+              <div className="flex gap-10">
+                <img
+                  src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+                  className="border rounded-full h-32 w-32"
+                ></img>
+                <div className="flex justify-between gap-10">
+                  <div className="flex flex-col justify-center items-center">
+                    <h2 className="text-xl font-bold">Post</h2>
+                    <h3 className="text-xl font-semibold">120</h3>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <h2 className="text-xl font-bold">Followers</h2>
+                    <h3 className="text-xl font-semibold">120</h3>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <h2 className="text-xl font-bold">Following</h2>
+                    <h3 className="text-xl font-semibold">120</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col w-[100%] pr-6 pt-4">
+                <h1 className="text-2xl font-bold">Username</h1>
+                <h2 className="text-xl font-semibold pt-2 pr-2">
+                  A passionate web developer skilled in creating dynamic,
+                  responsive websites and applications. Proficient in frontend
+                  and backend technologies, including HTML, CSS, JavaScript, and
+                  frameworks like React and Node.js. Committed to delivering
+                  user-friendly solutions and continuously learning to stay
+                  updated with the latest industry trends.
+                </h2>
+              </div>
             </div>
           </div>
-          <div className="profile-stats">
-            <div className="stat">
-              <strong>{user.stats.posts}</strong>
-              <span>Posts</span>
+          <div className="grid grid-cols-3 w-[55%] absolute top-20 right-0 bg-yellow-600">
+            <div className="post-display w-100">
+              <Post className="profile-post" />
             </div>
-            <div className="stat">
-              <strong>{user.stats.followers}</strong>
-              <span>Followers</span>
+            <div className="post-display w-100">
+              <Post className="profile-post" />
             </div>
-            <div className="stat">
-              <strong>{user.stats.following}</strong>
-              <span>Following</span>
+            <div className="post-display w-100">
+              <Post className="profile-post" />
             </div>
           </div>
         </div>

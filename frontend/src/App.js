@@ -5,9 +5,9 @@ import Profile from "./components/Profile";
 function App() {
   return (
     <div className="h-screen">
-      {/* <Home /> */}
+      <Home />
       {/* <Explore /> */}
-      <Profile />
+      {/* <Profile /> */}
     </div>
   );
 }

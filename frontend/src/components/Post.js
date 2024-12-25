@@ -1,8 +1,11 @@
 import React from "react";
+import "./styles.css";
 
 function Post(props) {
   return (
-    <div className="post-container bg-yellow-800 flex-col justify-center items-center w-[40%] mb-3 p-10 border-5 border-black rounded-xl">
+    <div
+      className={`post-container bg-yellow-800 flex-col justify-center items-center w-[40%] mb-3 p-10 border-5 border-black rounded-xl ${props.className}`}
+    >
       <div className="flex w-100 justify-start gap-3">
         <img
           className="border-black w-12 h-12 rounded-full"
