@@ -137,7 +137,7 @@ function Profile() {
             <div className="w-[100%] pl-4 flex-col">
               <div className="flex gap-10">
                 <img
-                  alt="profile picture"
+                  alt="profile"
                   src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
                   className="border rounded-full h-32 w-32"
                 />

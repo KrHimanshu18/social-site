@@ -8,6 +8,7 @@ function Post(props) {
     >
       <div className="flex w-100 justify-start gap-3">
         <img
+          alt="profile"
           className="border-black w-12 h-12 rounded-full"
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
         />
