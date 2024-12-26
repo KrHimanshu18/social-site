@@ -3,16 +3,6 @@ import Post from "./Post";
 import "./styles.css";
 
 function Profile() {
-  const user = {
-    profilePicture: "https://via.placeholder.com/150", // Replace with dynamic data
-    name: "John Doe",
-    bio: "Web developer. Coffee lover. Lifelong learner.",
-    stats: {
-      posts: 120,
-      followers: 300,
-      following: 180,
-    },
-  };
   return (
     <div className="bg-yellow-600">
       {/* HEADER */}
@@ -147,9 +137,10 @@ function Profile() {
             <div className="w-[100%] pl-4 flex-col">
               <div className="flex gap-10">
                 <img
+                  alt="profile picture"
                   src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
                   className="border rounded-full h-32 w-32"
-                ></img>
+                />
                 <div className="flex justify-between gap-10">
                   <div className="flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold">Post</h2>

@@ -1,14 +1,18 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Explore from "./components/Explore";
 import Profile from "./components/Profile";
 
 function App() {
   return (
-    <div className="h-screen">
-      <Home />
-      {/* <Explore /> */}
-      {/* <Profile /> */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
   );
 }
 
