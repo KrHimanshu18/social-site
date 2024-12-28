@@ -1,9 +1,9 @@
 import Post from "./Post";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Explore() {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const posts = [
     {
       shayari:
@@ -69,7 +69,7 @@ function Explore() {
         "Jab tak na milo, dil ka haal kaisa samjhoge, mohabbat ka izhaar hum kaise karenge.",
     },
   ];
-
+  const userHandle = location.state?.userHandle || "Guest User";
   return (
     <div className="bg-yellow-600">
       <div
@@ -97,7 +97,7 @@ function Explore() {
           <li>
             <button
               onClick={() => {
-                navigate("/", { replace: true });
+                navigate("/", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-secondary flex items-center space-x-2"
             >
@@ -121,7 +121,7 @@ function Explore() {
           <li>
             <button
               onClick={() => {
-                navigate("/explore", { replace: true });
+                navigate("/explore", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -145,7 +145,7 @@ function Explore() {
           <li>
             <button
               onClick={() => {
-                navigate("/profile", { replace: true });
+                navigate("/profile", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >

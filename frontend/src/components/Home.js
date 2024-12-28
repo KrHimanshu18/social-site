@@ -74,7 +74,7 @@ function Home() {
     },
   ];
   const location = useLocation();
-  const userDetails = location.state?.userDetails || {};
+  const userHandle = location.state?.userHandle || "Guest User";
   const [fadeState, setFadeState] = useState("fade-in");
   const [currInd, setCurrInd] = useState(0);
   const logIn = true;
@@ -97,6 +97,7 @@ function Home() {
 
   return (
     <div className="bg-yellow-600 h-screen">
+      {/* HEADER */}
       <div
         className="bg-yellow-600 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start fixed top-0 left-0 w-full z-10 shadow-md pb-2"
         style={{ height: "80px" }}
@@ -122,7 +123,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/", { replace: true, state: { userDetails } });
+                navigate("/", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-secondary flex items-center space-x-2"
             >
@@ -146,7 +147,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/explore", { replace: true, state: { userDetails } });
+                navigate("/explore", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -170,7 +171,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/profile", { replace: true, state: { userDetails } });
+                navigate("/profile", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -241,7 +242,7 @@ function Home() {
             voice matters and is just a click away from being heard
           </p>
           <p className="lead mb-4 font-semibold">
-            This is the present user : {userDetails.name}
+            This is the present user : {userHandle}
           </p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
             <button
@@ -255,7 +256,7 @@ function Home() {
             </button>
             <button
               onClick={() => {
-                navigate("/profile", { replace: true, state: { userDetails } });
+                navigate("/profile", { replace: true, state: { userHandle } });
               }}
               type="button"
               className="btn btn-outline-secondary btn-lg px-4"

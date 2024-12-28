@@ -2,27 +2,27 @@ import { React, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Post from "./Post";
 import "./styles.css";
-// import axios from "axios";
+import axios from "axios";
 
 function Profile() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userDetails = location.state?.userDetails || {};
+  const userHandle = location.state?.userHandle || "Guest User";
   const [content, setContent] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userDetails);
-    // const post = {
-    //   name: "Kr_Himanshu",
-    //   content: content,
-    // };
-    // try {
-    //   const response = await axios.post("http://localhost:8080/newPost", post);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error("An error occurred while posting", error);
-    // }
+    console.log(userHandle);
+    const post = {
+      name: "Kr_Himanshu",
+      content: content,
+    };
+    try {
+      const response = await axios.post("http://localhost:8080/newPost", post);
+      console.log(response);
+    } catch (error) {
+      console.error("An error occurred while posting", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -57,7 +57,7 @@ function Profile() {
           <li>
             <button
               onClick={() => {
-                navigate("/", { replace: true });
+                navigate("/", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-secondary flex items-center space-x-2"
             >
@@ -81,7 +81,7 @@ function Profile() {
           <li>
             <button
               onClick={() => {
-                navigate("/explore", { replace: true });
+                navigate("/explore", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -105,7 +105,7 @@ function Profile() {
           <li>
             <button
               onClick={() => {
-                navigate("/profile", { replace: true });
+                navigate("/profile", { replace: true, state: { userHandle } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -189,7 +189,7 @@ function Profile() {
                 </div>
               </div>
               <div className="flex flex-col w-[100%] pr-6 pt-4">
-                <h1 className="text-2xl font-bold">{userDetails.name}</h1>
+                <h1 className="text-2xl font-bold">{userHandle}</h1>
                 <h2 className="text-xl font-semibold pt-2 pr-2">
                   A passionate web developer skilled in creating dynamic,
                   responsive websites and applications. Proficient in frontend

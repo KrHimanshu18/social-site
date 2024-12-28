@@ -18,24 +18,25 @@ function Login() {
     setErrorMessage(""); // Clear previous error messages
     try {
       let response;
-      let userData;
+      let userHandle;
       if (logIn) {
         response = await axios.get("http://localhost:8080/getUser", {
           params: { name: userDetails.name, password: userDetails.password },
         });
-        userData = response.user; // Assuming response contains user details
+        userHandle = userDetails.name; // Assuming response contains user details
       } else {
         response = await axios.post(
           "http://localhost:8080/newUser",
           userDetails
         );
-        userData = response.data; // Assuming response contains user details
+        console.log(response);
+        userHandle = userDetails.name;
       }
 
       alert(
         logIn ? "User logged in successfully" : "User created successfully"
       );
-      navigate("/", { replace: true, state: { userDetails: userData } });
+      navigate("/", { replace: true, state: { userHandle } });
     } catch (error) {
       if (error.response && error.response.status === 409) {
         setErrorMessage("Username is already taken. Please choose another.");
