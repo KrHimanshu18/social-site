@@ -1,10 +1,33 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Post from "./Post";
 import "./styles.css";
+// import axios from "axios";
 
 function Profile() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const userDetails = location.state?.userDetails || {};
+  const [content, setContent] = useState();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(userDetails);
+    // const post = {
+    //   name: "Kr_Himanshu",
+    //   content: content,
+    // };
+    // try {
+    //   const response = await axios.post("http://localhost:8080/newPost", post);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error("An error occurred while posting", error);
+    // }
+  };
+
+  const handleInputChange = (e) => {
+    setContent(e.target.value);
+  };
 
   return (
     <div className="bg-yellow-600">
@@ -141,8 +164,8 @@ function Profile() {
 
       {/* HERO SECTION */}
       <section className="pt-[140px] bg-yellow-600 h-screen">
-        <div className="flex gap-5 bg-yellow-600">
-          <div className="flex justify-center w-[45%] fixed top-25 bg-yellow-600">
+        <div className="flex gap-5 bg-yellow-600 pb-10">
+          <div className="flex justify-center w-[45%] top-25 bg-yellow-600">
             <div className="w-[100%] pl-4 flex-col">
               <div className="flex gap-10">
                 <img
@@ -166,7 +189,7 @@ function Profile() {
                 </div>
               </div>
               <div className="flex flex-col w-[100%] pr-6 pt-4">
-                <h1 className="text-2xl font-bold">Username</h1>
+                <h1 className="text-2xl font-bold">{userDetails.name}</h1>
                 <h2 className="text-xl font-semibold pt-2 pr-2">
                   A passionate web developer skilled in creating dynamic,
                   responsive websites and applications. Proficient in frontend
@@ -178,16 +201,49 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 w-[55%] absolute top-20 right-0 bg-yellow-600">
-            <div className="post-display w-100">
-              <Post className="profile-post" />
+
+          <form
+            className="border-2 p-10 rounded-xl w-[55%] mr-5"
+            onSubmit={handleSubmit}
+          >
+            <h2 className="h3 mb-3 font-bold text-2xl">New Post</h2>
+
+            <div className="form-floating mb-3">
+              <textarea
+                type="text"
+                className="form-control h-auto"
+                id="floatingContent"
+                name="content"
+                placeholder="Content"
+                value={content}
+                onChange={handleInputChange}
+                required
+              />
+              <label htmlFor="floatingName">Content</label>
             </div>
-            <div className="post-display w-100">
-              <Post className="profile-post" />
-            </div>
-            <div className="post-display w-100">
-              <Post className="profile-post" />
-            </div>
+            <button className="btn btn-primary w-100 py-2" type="submit">
+              Post
+            </button>
+          </form>
+        </div>
+        <div className="grid grid-cols-3 w-100  bg-yellow-600">
+          <div className="post-display w-100">
+            <Post className="profile-post" />
+          </div>
+          <div className="post-display w-100">
+            <Post className="profile-post" />
+          </div>
+          <div className="post-display w-100">
+            <Post className="profile-post" />
+          </div>
+          <div className="post-display w-100">
+            <Post className="profile-post" />
+          </div>
+          <div className="post-display w-100">
+            <Post className="profile-post" />
+          </div>
+          <div className="post-display w-100">
+            <Post className="profile-post" />
           </div>
         </div>
       </section>

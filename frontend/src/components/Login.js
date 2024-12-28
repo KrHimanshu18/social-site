@@ -18,29 +18,30 @@ function Login() {
     setErrorMessage(""); // Clear previous error messages
     try {
       let response;
+      let userData;
       if (logIn) {
         response = await axios.get("http://localhost:8080/getUser", {
           params: { name: userDetails.name, password: userDetails.password },
         });
+        userData = response.user; // Assuming response contains user details
       } else {
         response = await axios.post(
           "http://localhost:8080/newUser",
           userDetails
         );
+        userData = response.data; // Assuming response contains user details
       }
-      console.log(response);
-      if (logIn) {
-        alert("User logined successfully");
-      } else {
-        alert("User created successfully");
-      }
-      navigate("/", { replace: true });
+
+      alert(
+        logIn ? "User logged in successfully" : "User created successfully"
+      );
+      navigate("/", { replace: true, state: { userDetails: userData } });
     } catch (error) {
       if (error.response && error.response.status === 409) {
         setErrorMessage("Username is already taken. Please choose another.");
       } else {
-        console.error("An error occurred while creating a new user", error);
-        setErrorMessage("Failed to create a user. Please try again later.");
+        console.error("An error occurred", error);
+        setErrorMessage("An error occurred. Please try again later.");
       }
     }
   };

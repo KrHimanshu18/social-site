@@ -132,8 +132,9 @@ app.post("/newPost", async (req, res) => {
 
   try {
     // Check if the User exists
+    console.log(body);
     const user = await prisma.user.findUnique({
-      where: { name: body.authorId },
+      where: { name: body.name },
     });
 
     if (!user) {
@@ -145,7 +146,7 @@ app.post("/newPost", async (req, res) => {
       data: {
         content: body.content,
         author: {
-          connect: { name: body.authorId }, // Connect using the author's name
+          connect: { name: body.name }, // Connect using the author's name
         },
       },
     });

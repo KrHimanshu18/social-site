@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./styles.css";
 
 function Home() {
@@ -73,6 +73,8 @@ function Home() {
       by: "Ralph Waldo Emerson",
     },
   ];
+  const location = useLocation();
+  const userDetails = location.state?.userDetails || {};
   const [fadeState, setFadeState] = useState("fade-in");
   const [currInd, setCurrInd] = useState(0);
   const logIn = true;
@@ -120,7 +122,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/", { replace: true });
+                navigate("/", { replace: true, state: { userDetails } });
               }}
               className="nav-link text-secondary flex items-center space-x-2"
             >
@@ -144,7 +146,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/explore", { replace: true });
+                navigate("/explore", { replace: true, state: { userDetails } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -168,7 +170,7 @@ function Home() {
           <li>
             <button
               onClick={() => {
-                navigate("/profile", { replace: true });
+                navigate("/profile", { replace: true, state: { userDetails } });
               }}
               className="nav-link text-white flex items-center space-x-2"
             >
@@ -238,6 +240,9 @@ function Home() {
             with others, express your thoughts, and inspire your audience—your
             voice matters and is just a click away from being heard
           </p>
+          <p className="lead mb-4 font-semibold">
+            This is the present user : {userDetails.name}
+          </p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
             <button
               onClick={() => {
@@ -249,6 +254,9 @@ function Home() {
               Login
             </button>
             <button
+              onClick={() => {
+                navigate("/profile", { replace: true, state: { userDetails } });
+              }}
               type="button"
               className="btn btn-outline-secondary btn-lg px-4"
             >
