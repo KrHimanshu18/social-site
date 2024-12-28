@@ -2,10 +2,12 @@ import { PrismaClient } from "@prisma/client";
 import express from "express";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
+import cors from "cors";
 
 const app = express();
-const port = 3000;
+const port = 8080;
 app.use(bodyParser.json());
+app.use(cors());
 const prisma = new PrismaClient();
 
 // {
@@ -50,17 +52,18 @@ app.get("/getPost", async (req, res) => {
 //   "name":"Kr_Himanshu"
 // }
 app.get("/getUser", async (req, res) => {
-  const body = req.body; // Extract the request body
+  const { name } = req.query; // Extract 'name' from the query string
+  // console.log("This is the name from query string: " + name);
 
   // Validate input
-  if (!body.name) {
+  if (!name) {
     return res.status(400).json({ message: "Name is required" });
   }
 
   try {
     // Retrieve the user with associated posts
     const user = await prisma.user.findUnique({
-      where: { name: body.name }, // Search by `name`
+      where: { name: name }, // Search by 'name'
       include: {
         posts: true, // Include associated posts
       },
@@ -90,7 +93,6 @@ app.get("/getUser", async (req, res) => {
 // }
 app.post("/newUser", async (req, res) => {
   const body = req.body;
-
   try {
     // check if username is already taken
     const userExists = await prisma.user.findUnique({
@@ -300,7 +302,7 @@ app.delete("/deletePost", async (req, res) => {
 });
 
 // {
-//   "commentId":"1"
+//   "commentId":"5bf5214a-31c8-4bca-8ec0-e65261ee2566"
 // }
 app.delete("/deleteComment", async (req, res) => {
   const body = req.body;

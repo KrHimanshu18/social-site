@@ -75,6 +75,7 @@ function Home() {
   ];
   const [fadeState, setFadeState] = useState("fade-in");
   const [currInd, setCurrInd] = useState(0);
+  const logIn = true;
   const length = quotes.length;
   const navigate = useNavigate();
 
@@ -239,6 +240,9 @@ function Home() {
           </p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
             <button
+              onClick={() => {
+                navigate("/login", { replace: true, state: { logIn: logIn } });
+              }}
               type="button"
               className="btn btn-primary btn-lg px-4 me-sm-3"
             >
