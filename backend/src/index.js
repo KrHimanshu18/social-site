@@ -162,6 +162,37 @@ app.post("/newPost", async (req, res) => {
 });
 
 // {
+//     "comment":"This is a demo comment",
+//     "postId":"543befa4-8d9b-4bb1-8d4f-20c64276a6e6",
+//     "authorId":"1128e374-7e13-417e-b49c-d73cd9c717df"
+// }
+app.post("/newComment", async (req, res) => {
+  const body = req.body;
+
+  if (!body.comment || !body.postId || !body.authorId) {
+    return res.status(400).json({
+      error: "Missing required fields: comment, postId, or authorId.",
+    });
+  }
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        comment: body.comment,
+        postId: body.postId,
+        authorId: body.authorId,
+      },
+    });
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error("Error creating comment:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the comment." });
+  }
+});
+
+// {
 //   "postId":"b8fe2593-b830-4241-be2c-054d662cae30",
 //   "content":"This is the updated post"
 // }
@@ -206,6 +237,30 @@ app.patch("/updatePost", async (req, res) => {
 });
 
 // {
+//   "postId":"543befa4-8d9b-4bb1-8d4f-20c64276a6e6"
+// }
+app.patch("/newLike", async (req, res) => {
+  const body = req.body;
+
+  if (!body.postId) {
+    return res.status(400).json({ error: "Missing required field: postId." });
+  }
+
+  try {
+    const updatedPost = await prisma.post.update({
+      where: { id: body.postId },
+      data: {
+        like: { increment: 1 },
+      },
+    });
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.error("Error updating likes:", error);
+    res.status(500).json({ error: "An error occurred while updating likes." });
+  }
+});
+
+// {
 //   "postId":"b8fe2593-b830-4241-be2c-054d662cae30"
 // }
 app.delete("/deletePost", async (req, res) => {
@@ -241,6 +296,45 @@ app.delete("/deletePost", async (req, res) => {
       message: "Failed to delete post",
       error: error.message,
     });
+  }
+});
+
+// {
+//   "commentId":"1"
+// }
+app.delete("/deleteComment", async (req, res) => {
+  const body = req.body;
+
+  // Validate input
+  if (!body.commentId) {
+    return res
+      .status(400)
+      .json({ error: "Missing required field: commentId." });
+  }
+
+  try {
+    // Delete the comment from the database
+    const deletedComment = await prisma.comment.delete({
+      where: { id: body.commentId },
+    });
+
+    res.status(200).json({
+      message: "Comment deleted successfully.",
+      deletedComment,
+    });
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+
+    if (error.code === "P2025") {
+      // Prisma-specific error for record not found
+      return res
+        .status(404)
+        .json({ error: "Comment not found. Unable to delete." });
+    }
+
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the comment." });
   }
 });
 
