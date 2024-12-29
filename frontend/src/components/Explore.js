@@ -203,10 +203,10 @@ function Explore() {
       </div>
 
       {/* HERO SECTION  */}
-      <div className="flex-col w-100 pt-[90px]">
+      <div className="flex-col w-100 pt-[90px] pb-5">
         {posts.map((post, index) => (
           <div className="w-100  mb-4 flex justify-center   " key={index}>
-            <Post post={post.shayari} />
+            <Post content={post.shayari} />
           </div>
         ))}
       </div>
