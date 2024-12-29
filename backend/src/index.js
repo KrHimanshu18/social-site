@@ -57,6 +57,7 @@ app.get("/userLogIn", async (req, res) => {
 
 // {
 //     "name":"Kr_Himanshu"
+//     "password":"KrHimanshu"
 // }
 app.get("/getPost", async (req, res) => {
   const { name } = req.query; // Extract 'name' from query parameters
@@ -157,12 +158,12 @@ app.post("/newUser", async (req, res) => {
       },
     });
     res.status(201).json({
-      message: "Beneficiary created successfully",
+      message: "User created successfully",
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Failed to create beneficiary",
+      message: "Failed to create the user",
       error: error.message,
     });
   }
