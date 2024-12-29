@@ -20,7 +20,7 @@ function Login() {
       let response;
       let userHandle;
       if (logIn) {
-        response = await axios.get("http://localhost:8080/getUser", {
+        response = await axios.get("http://localhost:8080/userLogIn", {
           params: { name: userDetails.name, password: userDetails.password },
         });
         userHandle = userDetails.name; // Assuming response contains user details
