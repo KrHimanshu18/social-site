@@ -38,8 +38,14 @@ function Login() {
       );
       navigate("/", { replace: true, state: { userHandle } });
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        setErrorMessage("Username is already taken. Please choose another.");
+      if (error.response && error.response.status === 400) {
+        setErrorMessage("Required field missing");
+      } else if (error.response && error.response.status === 404) {
+        setErrorMessage("User not found");
+      } else if (error.response && error.response.status === 401) {
+        setErrorMessage("Wrong password");
+      } else if (error.response && error.response.status === 409) {
+        setErrorMessage("Username not already taken");
       } else {
         console.error("An error occurred", error);
         setErrorMessage("An error occurred. Please try again later.");
