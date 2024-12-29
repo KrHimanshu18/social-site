@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Post from "./Post";
 import "./styles.css";
@@ -9,12 +9,32 @@ function Profile() {
   const navigate = useNavigate();
   const userHandle = location.state?.userHandle || "Guest User";
   const [content, setContent] = useState();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      // alert("Function is called");
+      console.log("Fetching posts for userHandle:", userHandle);
+      try {
+        const response = await axios.get("http://localhost:8080/getPost", {
+          params: { name: userHandle },
+        });
+        // alert("Posts are fetched successfully");
+        console.log("Fetched posts:", response.data.posts);
+        setPosts(response.data.posts);
+      } catch (error) {
+        alert("Error in fetching post");
+        console.error("Error fetching posts:", error);
+      }
+    };
+    fetchPosts();
+  }, [userHandle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(userHandle);
     const post = {
-      name: "Kr_Himanshu",
+      name: userHandle,
       content: content,
     };
     try {
@@ -226,25 +246,16 @@ function Profile() {
             </button>
           </form>
         </div>
-        <div className="grid grid-cols-3 w-100  bg-yellow-600">
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
-          <div className="post-display w-100">
-            <Post className="profile-post" />
-          </div>
+        <div className="grid grid-cols-3 w-100 bg-yellow-600">
+          {posts.map((post, index) => (
+            <div key={index} className="post-display w-100">
+              <Post
+                className="profile-post"
+                content={post.content}
+                userHandle={userHandle}
+              />
+            </div>
+          ))}
         </div>
       </section>
     </div>

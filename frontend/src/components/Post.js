@@ -4,7 +4,7 @@ import "./styles.css";
 function Post(props) {
   return (
     <div
-      className={`post-container bg-yellow-800 flex-col justify-center items-center w-[40%] mb-3 p-10 border-5 border-black rounded-xl ${props.className}`}
+      className={`post-container bg-yellow-800 flex-col justify-center items-center w-[40%] h-auto mb-3 p-10 border-5 border-black rounded-xl ${props.className}`}
     >
       <div className="flex w-100 justify-start gap-3">
         <img
@@ -12,9 +12,11 @@ function Post(props) {
           className="border-black w-12 h-12 rounded-full"
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
         />
-        <h1 className="text-2xl font-bold">Username</h1>
+        <h1 className="text-2xl font-bold">{props.userHandle}</h1>
       </div>
-      <h2 className="post my-5 py-5 w-100 font-bold text-xl">{props.post}</h2>
+      <h2 className="post my-5 py-5 w-100 font-bold text-xl">
+        {props.content}
+      </h2>
       <div className="flex justify-between w-100">
         <div className="flex flex-col items-center">
           <svg

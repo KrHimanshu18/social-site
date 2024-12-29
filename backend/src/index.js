@@ -14,17 +14,17 @@ const prisma = new PrismaClient();
 //     "name":"Kr_Himanshu"
 // }
 app.get("/getPost", async (req, res) => {
-  const body = req.body; // Extract request body
+  const { name } = req.query; // Extract 'name' from query parameters
 
   // Validate input
-  if (!body.name) {
+  if (!name) {
     return res.status(400).json({ message: "Name is required" });
   }
 
   try {
     // Retrieve the user based on the provided name
     const user = await prisma.user.findUnique({
-      where: { name: body.name }, // Search user by name
+      where: { name: name }, // Search user by name
       include: {
         posts: true, // Include posts related to the user
       },
