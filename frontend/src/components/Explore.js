@@ -164,7 +164,7 @@ function Explore() {
               id={post.id}
               content={post.content}
               authorId={post.authorId}
-              userHandle={userHandle}
+              userHandle={post.author.name}
             />
           </div>
         ))}
