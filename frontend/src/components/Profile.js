@@ -10,6 +10,8 @@ function Profile() {
   const userHandle = location.state?.userHandle || "Guest User";
   const [content, setContent] = useState();
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
+  const [numPost, setNum] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,12 +24,29 @@ function Profile() {
         // alert("Posts are fetched successfully");
         console.log("Fetched posts:", response.data.posts);
         setPosts(response.data.posts);
+        setNum(response.data.posts.length);
+      } catch (error) {
+        alert("Error in fetching post");
+        console.error("Error fetching posts:", error);
+      }
+    };
+    const fetchUser = async () => {
+      // alert("Function is called");
+      console.log("Fetching posts for userHandle:", userHandle);
+      try {
+        const response = await axios.get("http://localhost:8080/getUser", {
+          params: { name: userHandle },
+        });
+        // alert("Posts are fetched successfully");
+        console.log("Fetched posts:", response.data.posts);
+        setUser(response.data.user);
       } catch (error) {
         alert("Error in fetching post");
         console.error("Error fetching posts:", error);
       }
     };
     fetchPosts();
+    fetchUser();
   }, [userHandle]);
 
   const handleSubmit = async (e) => {
@@ -196,15 +215,15 @@ function Profile() {
                 <div className="flex justify-between gap-10">
                   <div className="flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold">Post</h2>
-                    <h3 className="text-xl font-semibold">120</h3>
+                    <h3 className="text-xl font-semibold">{numPost}</h3>
                   </div>
                   <div className="flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold">Followers</h2>
-                    <h3 className="text-xl font-semibold">120</h3>
+                    <h3 className="text-xl font-semibold">{user.followers}</h3>
                   </div>
                   <div className="flex flex-col justify-center items-center">
                     <h2 className="text-xl font-bold">Following</h2>
-                    <h3 className="text-xl font-semibold">120</h3>
+                    <h3 className="text-xl font-semibold">{user.following}</h3>
                   </div>
                 </div>
               </div>
