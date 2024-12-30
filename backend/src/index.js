@@ -12,6 +12,7 @@ const prisma = new PrismaClient();
 
 // {
 //     "name":"Kr_Himanshu"
+//     "password":"KrHimanshu"
 // }
 app.get("/userLogIn", async (req, res) => {
   const { name, password } = req.query;
@@ -49,7 +50,7 @@ app.get("/userLogIn", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Log In failed",
+      message: "Login failed",
       error: error.message,
     });
   }
