@@ -251,7 +251,9 @@ function Profile() {
             <div key={index} className="post-display w-100">
               <Post
                 className="profile-post"
+                id={post.id}
                 content={post.content}
+                authorId={post.authorId}
                 userHandle={userHandle}
               />
             </div>
