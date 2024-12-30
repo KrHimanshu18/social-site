@@ -1,75 +1,29 @@
 import Post from "./Post";
+import { React, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function Explore() {
   const navigate = useNavigate();
   const location = useLocation();
-  const posts = [
-    {
-      shayari:
-        "Dil ki har ek baat tumse kehne ki aarzoo thi, tumne mujhse milke zindagi mein nayi roshni bhar di.",
-    },
-    {
-      shayari:
-        "Tere bina jeena, ek mazaaq sa lagta hai, apne dil mein bas teri yaadon ka raaj hai.",
-    },
-    {
-      shayari:
-        "Kismat ke chakkar mein humne tumhe khona nahi chaahaa tha, par khuda se dua karte hain ki tum humare paas ho.",
-    },
-    {
-      shayari:
-        "Jab tum paas ho, toh ye zindagi ek nayi roshni hai, tumse duri mein sab kuch andhera sa lagta hai.",
-    },
-    {
-      shayari:
-        "Bhi dil ki baatein hum tumse kehne nahi chahte, lekin ye dil kabhi bhi tumse chhupne nahi chahte.",
-    },
-    {
-      shayari:
-        "Tumhaare bina, ye duniya khaali hai, tumhare saath toh har ek raasta zindagi ka naya hai.",
-    },
-    {
-      shayari:
-        "Dil ki har ek baat tumse kehna chahta hoon, har ek pal tumhe apne dil mein mehsoos karna chahta hoon.",
-    },
-    {
-      shayari:
-        "Jo bhi kuchh hai, bas tumhare saath ho, har ek pal mein apne dil ko mehsoos karna chahta hoon.",
-    },
-    {
-      shayari:
-        "Tere bina jeena mushkil hai, lekin apne sapno mein tumhe har waqt apne paas paana chahta hoon.",
-    },
-    {
-      shayari: "Dil ke kone mein ek khaali jagah hai, tumhari yaadon ke liye.",
-    },
-    {
-      shayari:
-        "Agar tum saath ho, toh sab kuch sahna asaan lagta hai, tumhare bina toh dil mein udaasi ka samaan lagta hai.",
-    },
-    {
-      shayari:
-        "Kabhi humne bhi sapne dekhe the, apne saath tumhe dekhne ke, magar tum nahi aaye.",
-    },
-    {
-      shayari:
-        "Aap se milke, kuch aur hi jazbaat jagaye hain humne, tumhare liye apni har ek khushi chhupa li hai.",
-    },
-    {
-      shayari:
-        "Dil se jo baat nikalti hai, vo jazbaat tumhare liye hamesha jeeti hai.",
-    },
-    {
-      shayari:
-        "Mohabbat mein humne sab kuch khoya hai, par dil ki ek ek baat tumhare naam ki hai.",
-    },
-    {
-      shayari:
-        "Jab tak na milo, dil ka haal kaisa samjhoge, mohabbat ka izhaar hum kaise karenge.",
-    },
-  ];
   const userHandle = location.state?.userHandle || "Guest User";
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/getFeed");
+        // alert("Posts are fetched successfully");
+        console.log("Fetched posts:", response.data.posts);
+        setPosts(response.data.posts);
+      } catch (error) {
+        alert("Error in fetching post");
+        console.error("Error fetching posts:", error);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   return (
     <div className="bg-yellow-600">
       <div
@@ -206,7 +160,12 @@ function Explore() {
       <div className="flex-col w-100 pt-[90px] pb-5">
         {posts.map((post, index) => (
           <div className="w-100  mb-4 flex justify-center   " key={index}>
-            <Post content={post.shayari} />
+            <Post
+              id={post.id}
+              content={post.content}
+              authorId={post.authorId}
+              userHandle={userHandle}
+            />
           </div>
         ))}
       </div>

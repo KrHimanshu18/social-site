@@ -133,6 +133,33 @@ app.get("/getUser", async (req, res) => {
   }
 });
 
+app.get("/getFeed", async (req, res) => {
+  try {
+    // Fetch all posts from the database
+    const posts = await prisma.post.findMany({
+      include: {
+        author: true, // Include the author details
+        comments: true, // Include the comments on the posts
+      },
+      orderBy: {
+        createdAt: "desc", // Order posts by uploadTime in descending order
+      },
+    });
+
+    // Respond with the posts
+    res.status(200).json({
+      message: "Feed retrieved successfully",
+      posts, // Return the posts
+    });
+  } catch (error) {
+    console.error("Error retrieving feed:", error);
+    res.status(500).json({
+      message: "Failed to retrieve posts",
+      error: error.message,
+    });
+  }
+});
+
 // {
 //   "name":"Kr_Ankit",
 //   "email":"krankit@gmail.com",
